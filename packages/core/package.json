@@ -1,0 +1,30 @@
+{
+  "name": "@bfchain/nginx",
+  "packageManager": "yarn@3.1.1",
+  "main": "./build/cjs/src/index.js",
+  "types": "./build/cjs/src/index.d.ts",
+  "type": "commonjs",
+  "exports": {
+    ".": {
+      "require": "./build/cjs/src/index.js",
+      "types": "./build/cjs/src/index.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "tsc -w",
+    "start": "node ./build/cjs/src/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "16",
+    "@types/ws": "^8"
+  },
+  "dependencies": {
+    "tslib": "^2.3.1",
+    "ws": "^8.5.0"
+  },
+  "optionalDependencies": {
+    "@bfchain/nginx-binary-darwin-64": "workspace:*",
+    "@bfchain/nginx-binary-linux-64": "workspace:*",
+    "@bfchain/nginx-binary-windows-64": "workspace:*"
+  }
+}

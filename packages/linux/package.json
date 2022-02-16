@@ -1,0 +1,15 @@
+{
+  "name": "@bfchain/nginx-binary-linux-64",
+  "packageManager": "yarn@3.1.1",
+  "exports": {
+    "./binary": {
+      "node": "./binary/load-balancer"
+    }
+  },
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "arm64"
+  ]
+}

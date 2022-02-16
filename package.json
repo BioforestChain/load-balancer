@@ -1,0 +1,21 @@
+{
+  "name": "@bfchain/nginx-w",
+  "packageManager": "yarn@3.1.1",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "tsc -build -w",
+    "moke-server": "node ./packages/core/build/cjs/test/moke-server.js  ",
+    "load-balancer": "node ./packages/core/build/cjs/src/index.js",
+    "binary-build-windows": "cd ./binary && CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o ../packages/windows/binary",
+    "binary-build-linux": "cd ./binary && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build  -o ../packages/linux/binary",
+    "binary-build-mac": "cd ./binary && CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build  -o ../packages/darwin/binary",
+    "bbc": "yarn binary-build-windows && yarn binary-build-linux && yarn binary-build-mac"
+  },
+  "devDependencies": {
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.5"
+  }
+}
