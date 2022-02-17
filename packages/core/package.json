@@ -1,6 +1,6 @@
 {
   "name": "@bfchain/load-balancer",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "packageManager": "yarn@3.1.1",
   "main": "./build/cjs/src/index.js",
   "types": "./build/cjs/src/index.d.ts",
