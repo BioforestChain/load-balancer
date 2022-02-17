@@ -1,6 +1,6 @@
 {
   "name": "@bfchain/load-balancer-binary-darwin-64",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "packageManager": "yarn@3.1.1",
   "exports": {
     "./binary": {
@@ -11,6 +11,7 @@
     "darwin"
   ],
   "cpu": [
+    "x64",
     "arm64"
   ]
 }
