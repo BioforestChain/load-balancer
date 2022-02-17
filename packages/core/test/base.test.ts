@@ -1,5 +1,6 @@
 import assert from "assert";
 import { LoadBalancer } from "../src";
+import { WebSocket } from "ws";
 (async () => {
   const lb = new LoadBalancer();
   const res = await lb.start({
@@ -22,5 +23,16 @@ import { LoadBalancer } from "../src";
     ],
   });
   assert(res, "start server");
-  lb.stop();
+  // lb.stop();
+
+  /// client
+  const ws = new WebSocket("ws://localhost:8888", {
+    headers: {
+      type: "custom-header-type",
+    },
+  });
+  await new Promise((resolve) => {
+    ws.once("open", resolve);
+  });
+  ws.on("message", (msg) => {});
 })().catch(console.error);

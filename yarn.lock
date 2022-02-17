@@ -5,19 +5,19 @@ __metadata:
   version: 6
   cacheKey: 8
 
-"@bfchain/load-balancer-binary-darwin-64@workspace:*, @bfchain/load-balancer-binary-darwin-64@workspace:packages/darwin":
+"@bfchain/load-balancer-binary-darwin-64@workspace:packages/darwin, @bfchain/load-balancer-binary-darwin-64@workspace:~":
   version: 0.0.0-use.local
   resolution: "@bfchain/load-balancer-binary-darwin-64@workspace:packages/darwin"
   languageName: unknown
   linkType: soft
 
-"@bfchain/load-balancer-binary-linux-64@workspace:*, @bfchain/load-balancer-binary-linux-64@workspace:packages/linux":
+"@bfchain/load-balancer-binary-linux-64@workspace:packages/linux, @bfchain/load-balancer-binary-linux-64@workspace:~":
   version: 0.0.0-use.local
   resolution: "@bfchain/load-balancer-binary-linux-64@workspace:packages/linux"
   languageName: unknown
   linkType: soft
 
-"@bfchain/load-balancer-binary-windows-64@workspace:*, @bfchain/load-balancer-binary-windows-64@workspace:packages/windows":
+"@bfchain/load-balancer-binary-windows-64@workspace:packages/windows, @bfchain/load-balancer-binary-windows-64@workspace:~":
   version: 0.0.0-use.local
   resolution: "@bfchain/load-balancer-binary-windows-64@workspace:packages/windows"
   languageName: unknown
@@ -27,14 +27,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@bfchain/load-balancer@workspace:packages/core"
   dependencies:
-    "@bfchain/load-balancer-binary-darwin-64": "workspace:*"
-    "@bfchain/load-balancer-binary-linux-64": "workspace:*"
-    "@bfchain/load-balancer-binary-windows-64": "workspace:*"
+    "@bfchain/load-balancer-binary-darwin-64": "workspace:~"
+    "@bfchain/load-balancer-binary-linux-64": "workspace:~"
+    "@bfchain/load-balancer-binary-windows-64": "workspace:~"
     "@types/node": 16
     "@types/ws": ^8
-    ws: ^8.5.0
-  peerDependencies:
     tslib: ^2.3.1
+    ws: ^8.5.0
   dependenciesMeta:
     "@bfchain/load-balancer-binary-darwin-64":
       optional: true

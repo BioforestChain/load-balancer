@@ -130,28 +130,16 @@ class LoadBalancer {
     }
 }
 exports.LoadBalancer = LoadBalancer;
-if (require.main === module) {
-    (async () => {
-        const lb = new LoadBalancer();
-        const res = await lb.start({
-            scheme: "http",
-            host: "0.0.0.0",
-            port: 8888,
-            servers: [
-                {
-                    name: "Server A",
-                    scheme: "http",
-                    host: "127.0.0.1",
-                    port: 9800,
-                },
-                {
-                    name: "Server B",
-                    scheme: "http",
-                    host: "127.0.0.1",
-                    port: 9801,
-                },
-            ],
-        });
-        console.log("start", res);
-    })().catch(console.error);
-}
+// const routesConf: Route = {
+//   mode: ":and",
+//   left: {
+//     mode: ":method",
+//     value: "DELETE",
+//   },
+//   right: {
+//     mode: ":header",
+//     key: "zz",
+//     value: "ZZ",
+//   },
+//   to: ["x"],
+// };

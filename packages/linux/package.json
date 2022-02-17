@@ -1,6 +1,6 @@
 {
   "name": "@bfchain/load-balancer-binary-linux-64",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "packageManager": "yarn@3.1.1",
   "exports": {
     "./binary": {

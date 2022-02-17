@@ -69,6 +69,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@bfchain/load-balancer-binary-windows-64", "workspace:packages/windows"],\
             ["@types/node", "npm:16.11.25"],\
             ["@types/ws", "npm:8.2.2"],\
+            ["tslib", "npm:2.3.1"],\
             ["ws", "virtual:89a0531c9da07498eaad8cb6f09f89ae0becef1133d1d7cbdbeaca8a18aa5b06689cf2e4dc90e6234951ad68eef9e54edb6334a58498677c2d1c3832b3b65b58#npm:8.5.0"]\
           ],\
           "linkType": "SOFT"\

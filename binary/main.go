@@ -3,7 +3,9 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"flag"
 	"fmt"
+	"io/ioutil"
 	"net"
 	"net/http"
 	"os"
@@ -13,11 +15,11 @@ import (
 
 type ClientMessage struct {
 	Cmd  string
-	Conf Proxy
+	Conf Proxyer
 }
 
 // 代理配置
-var proxy Proxy
+var proxy Proxyer
 
 // 代理服务器
 var server *http.Server
@@ -47,21 +49,16 @@ func listenAndServe(srv *http.Server) error {
 	return nil
 }
 
-func handlerMsg(cmsg ClientMessage) {
-
+func handlerMsg(cmsg *ClientMessage) {
 	if cmsg.Cmd == "start" {
 		if server != nil {
 			returnErrorStr(cmsg.Cmd, `proxy server already started.`)
 			return
 		}
 
-		/// 格式化配置
 		newProxy := cmsg.Conf
-		setDefaultValues(&newProxy)
-		setServers(&newProxy)
-		/// 验证配置
-		err := validateFields(newProxy)
-		if err != nil {
+		// 整理格式，验证配置
+		if err := newProxy.Format(); err != nil {
 			returnError(cmsg.Cmd, err)
 			return
 		}
@@ -82,25 +79,22 @@ func handlerMsg(cmsg ClientMessage) {
 			return
 		}
 
-		/// 格式化配置
+		// 格式化配置
 		newProxy := cmsg.Conf
-		setDefaultValues(&newProxy)
-		setServers(&newProxy)
-		/// 验证配置
-		err := validateFields(proxy)
-		if err != nil {
+		// 整理格式，验证配置
+		if err := newProxy.Format(); err != nil {
 			returnError(cmsg.Cmd, err)
 			return
 		}
 
-		/// 端口一样，不用关闭原来的程序，更新hanlder就行了
+		// 端口一样，不用关闭原来的程序，更新hanlder就行了
 		if newProxy.Port == proxy.Port {
 			proxy = newProxy
 			server.Handler = newProxy
 			return
 		}
 
-		/// 端口不一样，重新进行监听，先监听新端口，再关闭旧端口，确保平滑过渡
+		// 端口不一样，重新进行监听，先监听新端口，再关闭旧端口，确保平滑过渡
 		newServer := &http.Server{Addr: ":" + strconv.Itoa(proxy.Port), Handler: proxy}
 		if err := listenAndServe(newServer); err != nil {
 			returnError(cmsg.Cmd, err)
@@ -117,6 +111,37 @@ func handlerMsg(cmsg ClientMessage) {
 }
 
 func main() {
+	configPtr := flag.String("config", "", "config filepath")
+	flag.Parse()
+
+	// 通过配置文件来初始化启动
+	if configFilepath := *configPtr; configFilepath != "" {
+		jsonFile, err := os.Open(configFilepath)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("Successfully Opened Config File " + configFilepath)
+		defer jsonFile.Close()
+
+		jsonContent, err := ioutil.ReadAll(jsonFile)
+		if err != nil {
+			panic(err)
+		}
+		newProxy := Proxyer{}
+		json.Unmarshal(jsonContent, &newProxy)
+
+		// 整理格式，验证配置
+		if err := newProxy.Format(); err != nil {
+			panic(err)
+		}
+		proxy = newProxy
+		server = &http.Server{Addr: ":" + strconv.Itoa(proxy.Port), Handler: proxy}
+
+		if err := listenAndServe(server); err != nil {
+			panic(err)
+		}
+		LogInfo("start proxy server success!")
+	}
 
 	// 持续地读取来之stdin的输入来作为指令
 	cacheChunk := ""
@@ -131,8 +156,8 @@ func main() {
 				break
 			}
 			msgJson := cacheChunk[0:msgSplitIndex]
-			cmsg := ClientMessage{}
-			if err := json.Unmarshal([]byte(msgJson), &cmsg); err == nil {
+			cmsg := &ClientMessage{}
+			if err := json.Unmarshal([]byte(msgJson), cmsg); err == nil {
 				cacheChunk = cacheChunk[msgSplitIndex+1:]
 				fmt.Printf("%v\n", cmsg)
 				handlerMsg(cmsg)

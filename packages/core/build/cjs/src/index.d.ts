@@ -14,14 +14,53 @@ export declare class LoadBalancer {
     testConfig(): void;
     stop(): Promise<boolean>;
 }
-interface LoadBalancerConf extends ServerUrl {
+export interface LoadBalancerConf extends ServerUrl {
     servers: Array<ServerUrl & {
         name: string;
     }>;
+    /**自定义静态路由分发策略 */
+    routes?: Array<Route>;
 }
-interface ServerUrl {
+export interface ServerUrl {
     host: string;
     port: number;
     scheme: "http" | "https";
 }
-export {};
+export declare type Route = Route.HeaderRoute | Route.MethodRoute | Route.PathRoute | Route.AndRoute;
+export declare namespace Route {
+    interface Base<MODE extends string> {
+        mode: MODE;
+        negation?: boolean;
+    }
+    interface PathRouteBase extends Base<":path"> {
+        value: string;
+    }
+    interface MethodRouteBase extends Base<":method"> {
+        value: "GET" | "POST" | "PUT" | "DELETE";
+    }
+    interface HeaderRouteBase extends Base<":header"> {
+        value: string;
+        key: string;
+    }
+    type RouteBase = PathRouteBase | MethodRouteBase | HeaderRouteBase | AndRouteBase;
+    interface AndRouteBase extends Base<":and"> {
+        left: RouteBase;
+        right: RouteBase;
+    }
+    interface To {
+        to: string[];
+    }
+    /**根据request.url 里进行匹配 */
+    export interface PathRoute extends PathRouteBase, To {
+    }
+    /**根据request.method 里的字段进行匹配 */
+    export interface MethodRoute extends MethodRouteBase, To {
+    }
+    /**根据request.headers 里的字段进行匹配 */
+    export interface HeaderRoute extends HeaderRouteBase, To {
+    }
+    /**用于联动多个条件 */
+    export interface AndRoute extends AndRouteBase, To {
+    }
+    export {};
+}
