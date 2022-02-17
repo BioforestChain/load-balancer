@@ -14,13 +14,13 @@ class LoadBalancer {
         const platform = os.platform();
         switch (platform) {
             case "win32":
-                this._binaryPath = require.resolve("@bfchain/nginx-binary-windows-64/binary");
+                this._binaryPath = require.resolve("@bfchain/load-balancer-binary-windows-64/binary");
                 break;
             case "linux":
-                this._binaryPath = require.resolve("@bfchain/nginx-binary-linux-64/binary");
+                this._binaryPath = require.resolve("@bfchain/load-balancer-binary-linux-64/binary");
                 break;
             case "darwin":
-                this._binaryPath = require.resolve("@bfchain/nginx-binary-darwin-64/binary");
+                this._binaryPath = require.resolve("@bfchain/load-balancer-binary-darwin-64/binary");
                 break;
         }
         if (this._binaryPath === "") {

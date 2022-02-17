@@ -19,34 +19,34 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     ],
     "dependencyTreeRoots": [
       {
-        "name": "@bfchain/nginx-w",
+        "name": "@bfchain/load-balancer-w",
         "reference": "workspace:."
       },
       {
-        "name": "@bfchain/nginx",
+        "name": "@bfchain/load-balancer",
         "reference": "workspace:packages/core"
       },
       {
-        "name": "@bfchain/nginx-binary-darwin-64",
+        "name": "@bfchain/load-balancer-binary-darwin-64",
         "reference": "workspace:packages/darwin"
       },
       {
-        "name": "@bfchain/nginx-binary-linux-64",
+        "name": "@bfchain/load-balancer-binary-linux-64",
         "reference": "workspace:packages/linux"
       },
       {
-        "name": "@bfchain/nginx-binary-windows-64",
+        "name": "@bfchain/load-balancer-binary-windows-64",
         "reference": "workspace:packages/windows"
       }
     ],
     "enableTopLevelFallback": true,
     "ignorePatternData": "(^(?:\\.yarn\\/sdks(?:\\/(?!\\.{1,2}(?:\\/|$))(?:(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$)).)*?)|$))$)",
     "fallbackExclusionList": [
-      ["@bfchain/nginx", ["workspace:packages/core"]],
-      ["@bfchain/nginx-binary-darwin-64", ["workspace:packages/darwin"]],
-      ["@bfchain/nginx-binary-linux-64", ["workspace:packages/linux"]],
-      ["@bfchain/nginx-binary-windows-64", ["workspace:packages/windows"]],
-      ["@bfchain/nginx-w", ["workspace:."]]
+      ["@bfchain/load-balancer", ["workspace:packages/core"]],
+      ["@bfchain/load-balancer-binary-darwin-64", ["workspace:packages/darwin"]],
+      ["@bfchain/load-balancer-binary-linux-64", ["workspace:packages/linux"]],
+      ["@bfchain/load-balancer-binary-windows-64", ["workspace:packages/windows"]],
+      ["@bfchain/load-balancer-w", ["workspace:."]]
     ],
     "fallbackPool": [
     ],
@@ -61,54 +61,54 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT",
         }]
       ]],
-      ["@bfchain/nginx", [
+      ["@bfchain/load-balancer", [
         ["workspace:packages/core", {
           "packageLocation": "./packages/core/",
           "packageDependencies": [
-            ["@bfchain/nginx", "workspace:packages/core"],
-            ["@bfchain/nginx-binary-darwin-64", "workspace:packages/darwin"],
-            ["@bfchain/nginx-binary-linux-64", "workspace:packages/linux"],
-            ["@bfchain/nginx-binary-windows-64", "workspace:packages/windows"],
+            ["@bfchain/load-balancer", "workspace:packages/core"],
+            ["@bfchain/load-balancer-binary-darwin-64", "workspace:packages/darwin"],
+            ["@bfchain/load-balancer-binary-linux-64", "workspace:packages/linux"],
+            ["@bfchain/load-balancer-binary-windows-64", "workspace:packages/windows"],
             ["@types/node", "npm:16.11.25"],
             ["@types/ws", "npm:8.2.2"],
             ["tslib", "npm:2.3.1"],
-            ["ws", "virtual:0a8560114ce600c6294ddceeec7a7492b8e60941152bbaf9c6b85aafb88c6a7758b5b0d342177d176b872afaf037f8757c7a6de60cac5f2422c087ce571cf048#npm:8.5.0"]
+            ["ws", "virtual:89a0531c9da07498eaad8cb6f09f89ae0becef1133d1d7cbdbeaca8a18aa5b06689cf2e4dc90e6234951ad68eef9e54edb6334a58498677c2d1c3832b3b65b58#npm:8.5.0"]
           ],
           "linkType": "SOFT",
         }]
       ]],
-      ["@bfchain/nginx-binary-darwin-64", [
+      ["@bfchain/load-balancer-binary-darwin-64", [
         ["workspace:packages/darwin", {
           "packageLocation": "./packages/darwin/",
           "packageDependencies": [
-            ["@bfchain/nginx-binary-darwin-64", "workspace:packages/darwin"]
+            ["@bfchain/load-balancer-binary-darwin-64", "workspace:packages/darwin"]
           ],
           "linkType": "SOFT",
         }]
       ]],
-      ["@bfchain/nginx-binary-linux-64", [
+      ["@bfchain/load-balancer-binary-linux-64", [
         ["workspace:packages/linux", {
           "packageLocation": "./packages/linux/",
           "packageDependencies": [
-            ["@bfchain/nginx-binary-linux-64", "workspace:packages/linux"]
+            ["@bfchain/load-balancer-binary-linux-64", "workspace:packages/linux"]
           ],
           "linkType": "SOFT",
         }]
       ]],
-      ["@bfchain/nginx-binary-windows-64", [
+      ["@bfchain/load-balancer-binary-windows-64", [
         ["workspace:packages/windows", {
           "packageLocation": "./packages/windows/",
           "packageDependencies": [
-            ["@bfchain/nginx-binary-windows-64", "workspace:packages/windows"]
+            ["@bfchain/load-balancer-binary-windows-64", "workspace:packages/windows"]
           ],
           "linkType": "SOFT",
         }]
       ]],
-      ["@bfchain/nginx-w", [
+      ["@bfchain/load-balancer-w", [
         ["workspace:.", {
           "packageLocation": "./",
           "packageDependencies": [
-            ["@bfchain/nginx-w", "workspace:."],
+            ["@bfchain/load-balancer-w", "workspace:."],
             ["tslib", "npm:2.3.1"],
             ["typescript", "patch:typescript@npm%3A4.5.5#~builtin<compat/typescript>::version=4.5.5&hash=493e53"]
           ],
@@ -167,10 +167,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "SOFT",
         }],
-        ["virtual:0a8560114ce600c6294ddceeec7a7492b8e60941152bbaf9c6b85aafb88c6a7758b5b0d342177d176b872afaf037f8757c7a6de60cac5f2422c087ce571cf048#npm:8.5.0", {
-          "packageLocation": "./.yarn/__virtual__/ws-virtual-34bfeea1ae/0/cache/ws-npm-8.5.0-8e99728c84-76f2f90e40.zip/node_modules/ws/",
+        ["virtual:89a0531c9da07498eaad8cb6f09f89ae0becef1133d1d7cbdbeaca8a18aa5b06689cf2e4dc90e6234951ad68eef9e54edb6334a58498677c2d1c3832b3b65b58#npm:8.5.0", {
+          "packageLocation": "./.yarn/__virtual__/ws-virtual-a37aaea8c1/0/cache/ws-npm-8.5.0-8e99728c84-76f2f90e40.zip/node_modules/ws/",
           "packageDependencies": [
-            ["ws", "virtual:0a8560114ce600c6294ddceeec7a7492b8e60941152bbaf9c6b85aafb88c6a7758b5b0d342177d176b872afaf037f8757c7a6de60cac5f2422c087ce571cf048#npm:8.5.0"],
+            ["ws", "virtual:89a0531c9da07498eaad8cb6f09f89ae0becef1133d1d7cbdbeaca8a18aa5b06689cf2e4dc90e6234951ad68eef9e54edb6334a58498677c2d1c3832b3b65b58#npm:8.5.0"],
             ["@types/bufferutil", null],
             ["@types/utf-8-validate", null],
             ["bufferutil", null],

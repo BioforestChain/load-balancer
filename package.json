@@ -1,5 +1,5 @@
 {
-  "name": "@bfchain/nginx-w",
+  "name": "@bfchain/load-balancer-w",
   "packageManager": "yarn@3.1.1",
   "private": true,
   "workspaces": [
@@ -7,6 +7,7 @@
   ],
   "scripts": {
     "dev": "tsc -build -w",
+    "publ": "yarn workspaces foreach npm publish --tolerate-republish --access public",
     "moke-server": "node ./packages/core/build/cjs/test/moke-server.js  ",
     "load-balancer": "node ./packages/core/build/cjs/src/index.js",
     "binary-build-windows": "cd ./binary && CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o ../packages/windows/binary",
