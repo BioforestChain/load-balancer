@@ -1,6 +1,6 @@
 {
   "name": "@bfchain/load-balancer",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "packageManager": "yarn@3.1.1",
   "main": "./build/cjs/src/index.js",
   "types": "./build/cjs/src/index.d.ts",
@@ -17,11 +17,11 @@
   },
   "devDependencies": {
     "@types/node": "16",
-    "@types/ws": "^8"
-  },
-  "dependencies": {
-    "tslib": "^2.3.1",
+    "@types/ws": "^8",
     "ws": "^8.5.0"
+  },
+  "peerDependencies": {
+    "tslib": "^2.3.1"
   },
   "optionalDependencies": {
     "@bfchain/load-balancer-binary-darwin-64": "workspace:*",

@@ -1,6 +1,5 @@
 {
-  "name": "@bfchain/load-balancer-w",
-  "packageManager": "yarn@3.1.1",
+  "packageManager": "yarn@3.2.0-rc.15",
   "private": true,
   "workspaces": [
     "packages/*"

@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 5
+  version: 6
   cacheKey: 8
 
 "@bfchain/load-balancer-binary-darwin-64@workspace:*, @bfchain/load-balancer-binary-darwin-64@workspace:packages/darwin":
@@ -23,15 +23,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@bfchain/load-balancer-w@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@bfchain/load-balancer-w@workspace:."
-  dependencies:
-    tslib: ^2.3.1
-    typescript: ^4.5.5
-  languageName: unknown
-  linkType: soft
-
 "@bfchain/load-balancer@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@bfchain/load-balancer@workspace:packages/core"
@@ -41,8 +32,9 @@ __metadata:
     "@bfchain/load-balancer-binary-windows-64": "workspace:*"
     "@types/node": 16
     "@types/ws": ^8
-    tslib: ^2.3.1
     ws: ^8.5.0
+  peerDependencies:
+    tslib: ^2.3.1
   dependenciesMeta:
     "@bfchain/load-balancer-binary-darwin-64":
       optional: true
@@ -76,6 +68,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"root-workspace-0b6124@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "root-workspace-0b6124@workspace:."
+  dependencies:
+    tslib: ^2.3.1
+    typescript: ^4.5.5
+  languageName: unknown
+  linkType: soft
+
 "tslib@npm:^2.3.1":
   version: 2.3.1
   resolution: "tslib@npm:2.3.1"
@@ -95,11 +96,11 @@ __metadata:
 
 "typescript@patch:typescript@^4.5.5#~builtin<compat/typescript>":
   version: 4.5.5
-  resolution: "typescript@patch:typescript@npm%3A4.5.5#~builtin<compat/typescript>::version=4.5.5&hash=493e53"
+  resolution: "typescript@patch:typescript@npm%3A4.5.5#~builtin<compat/typescript>::version=4.5.5&hash=142761"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: c05c318d79c690f101d7ffb34cd6c7d6bbd884d3af9cefe7749ad0cd6be43c7082f098280982ca945dcba23fde34a08fed9602bb26540936baf8c0520727d3ba
+  checksum: 858c61fa63f7274ca4aaaffeced854d550bf416cff6e558c4884041b3311fb662f476f167cf5c9f8680c607239797e26a2ee0bcc6467fbc05bfcb218e1c6c671
   languageName: node
   linkType: hard
 
