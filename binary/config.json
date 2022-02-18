@@ -17,15 +17,6 @@
     }
   ],
   "routes": [
-    {
-      "mode": ":path",
-      "value": "/a/*",
-      "to": ["Server A"]
-    },
-    {
-      "mode": ":path",
-      "value": "/b/*",
-      "to": ["Server B"]
-    }
+   
   ]
 }

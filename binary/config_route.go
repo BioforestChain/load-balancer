@@ -70,32 +70,43 @@ func (route *RouteBase) matchTo(req *http.Request) bool {
 
 func (rs *Proxyer) routesChooseServers(req *http.Request) []*Server {
 	toServers := make([]*Server, 0)
-	toMap := make(map[string]bool)
+	toMap := make(map[string]int)
 	// 初始化节点选择表
 	for _, server := range rs.Servers {
 		// server.name属性为空时，代表着它能受理任何情况的服务
 		if server.Name == "" {
 			toServers = append(toServers, server)
 		} else {
-			toMap[server.Name] = false
+			toMap[server.Name] = 0
 		}
 	}
+
+	// 选中节点时，最小的阈值
+	minChoosedNum := 0
 
 	// 遍历自定义路由，选择节点
 	for _, route := range rs.Routes {
 		if matched := route.matchTo(req); matched {
 			for _, name := range route.To {
-				if allow, has := toMap[name]; has && !allow {
-					toMap[name] = true
+				if _, has := toMap[name]; has {
+					toMap[name] += 1
+					minChoosedNum = 1
 				}
 			}
 		}
 	}
 
-	for name, choosed := range toMap {
-		if choosed {
+	// 挑选出阈值以上的节点
+	for name, choosedNum := range toMap {
+		if choosedNum >= minChoosedNum {
 			toServers = append(toServers, rs.serversMap[name])
 		}
 	}
 	return toServers
 }
+
+type ChooseServers []*Server
+
+func (a ChooseServers) Len() int           { return len(a) }
+func (a ChooseServers) Less(i, j int) bool { return a[i].Connections < a[j].Connections }
+func (a ChooseServers) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
