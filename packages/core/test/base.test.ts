@@ -21,6 +21,7 @@ import { WebSocket } from "ws";
         port: 9801,
       },
     ],
+    routes: [],
   });
   assert(res, "start server");
   // lb.stop();

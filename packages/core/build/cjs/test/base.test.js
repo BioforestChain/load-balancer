@@ -24,6 +24,7 @@ const ws_1 = require("ws");
                 port: 9801,
             },
         ],
+        routes: [],
     });
     (0, assert_1.default)(res, "start server");
     // lb.stop();
