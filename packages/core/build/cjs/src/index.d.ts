@@ -1,6 +1,6 @@
 export declare class LoadBalancer {
     private _binaryPath;
-    constructor();
+    constructor(_binaryPath?: string);
     private _process?;
     private _cacheOutput;
     private joinChunk;

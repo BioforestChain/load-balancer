@@ -6,25 +6,27 @@ const os = (0, tslib_1.__importStar)(require("node:os"));
 const node_child_process_1 = require("node:child_process");
 const node_events_1 = require("node:events");
 class LoadBalancer {
-    constructor() {
-        this._binaryPath = "";
+    constructor(_binaryPath = "") {
+        this._binaryPath = _binaryPath;
         this._cacheOutput = "";
         this._event = new node_events_1.EventEmitter();
-        // const req = createRequire(import.meta.url)
-        const platform = os.platform();
-        switch (platform) {
-            case "win32":
-                this._binaryPath = require.resolve("@bfchain/load-balancer-binary-windows-64/binary");
-                break;
-            case "linux":
-                this._binaryPath = require.resolve("@bfchain/load-balancer-binary-linux-64/binary");
-                break;
-            case "darwin":
-                this._binaryPath = require.resolve("@bfchain/load-balancer-binary-darwin-64/binary");
-                break;
-        }
         if (this._binaryPath === "") {
-            throw new Error(`load-balancer no support platform:${platform}`);
+            // const req = createRequire(import.meta.url)
+            const platform = os.platform();
+            switch (platform) {
+                case "win32":
+                    this._binaryPath = require.resolve("@bfchain/load-balancer-binary-windows-64/binary");
+                    break;
+                case "linux":
+                    this._binaryPath = require.resolve("@bfchain/load-balancer-binary-linux-64/binary");
+                    break;
+                case "darwin":
+                    this._binaryPath = require.resolve("@bfchain/load-balancer-binary-darwin-64/binary");
+                    break;
+            }
+            if (this._binaryPath === "") {
+                throw new Error(`load-balancer no support platform:${platform}`);
+            }
         }
     }
     joinChunk(chunk) {

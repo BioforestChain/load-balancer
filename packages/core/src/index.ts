@@ -9,29 +9,30 @@ import { Writable, Readable } from "node:stream";
 import { EventEmitter } from "node:events";
 
 export class LoadBalancer {
-  private _binaryPath = "";
-  constructor() {
-    // const req = createRequire(import.meta.url)
-    const platform = os.platform();
-    switch (platform) {
-      case "win32":
-        this._binaryPath = require.resolve(
-          "@bfchain/load-balancer-binary-windows-64/binary"
-        );
-        break;
-      case "linux":
-        this._binaryPath = require.resolve(
-          "@bfchain/load-balancer-binary-linux-64/binary"
-        );
-        break;
-      case "darwin":
-        this._binaryPath = require.resolve(
-          "@bfchain/load-balancer-binary-darwin-64/binary"
-        );
-        break;
-    }
+  constructor(private _binaryPath = "") {
     if (this._binaryPath === "") {
-      throw new Error(`load-balancer no support platform:${platform}`);
+      // const req = createRequire(import.meta.url)
+      const platform = os.platform();
+      switch (platform) {
+        case "win32":
+          this._binaryPath = require.resolve(
+            "@bfchain/load-balancer-binary-windows-64/binary"
+          );
+          break;
+        case "linux":
+          this._binaryPath = require.resolve(
+            "@bfchain/load-balancer-binary-linux-64/binary"
+          );
+          break;
+        case "darwin":
+          this._binaryPath = require.resolve(
+            "@bfchain/load-balancer-binary-darwin-64/binary"
+          );
+          break;
+      }
+      if (this._binaryPath === "") {
+        throw new Error(`load-balancer no support platform:${platform}`);
+      }
     }
   }
   private _process?: ChildProcessByStdio<Writable, Readable, Readable>;
