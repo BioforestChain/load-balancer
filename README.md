@@ -66,7 +66,7 @@ const res = await lb.start({
   ```json
   {
     "mode": ":header",
-    "key": "set-cookie",
+    "key": "Set-Cookie", // need CamelCase
     "value": "x=x",
     "to": ["Server A"]
   }

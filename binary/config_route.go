@@ -54,18 +54,25 @@ func newRouteBase(route *RouteBase) error {
 	}
 	return nil
 }
-func (route *RouteBase) matchTo(req *http.Request) bool {
+func (route *RouteBase) _matchTo(req *http.Request) bool {
 	if route.Mode == ":path" {
-		return route.glob.Match(req.URL.Path) && !route.Negation
+		return route.glob.Match(req.URL.Path)
 	} else if route.Mode == ":header" {
-		return contains(req.Header[route.Key], route.Value) && !route.Negation
+		return contains(req.Header[route.Key], route.Value)
 	} else if route.Mode == ":method" {
-		return req.Method == route.Value && !route.Negation
+		return req.Method == route.Value
 	} else if route.Mode == ":and" {
-		return route.Left.matchTo(req) && route.Right.matchTo(req) && !route.Negation
+		return route.Left.matchTo(req) && route.Right.matchTo(req)
 	}
 
 	return false
+}
+func (route *RouteBase) matchTo(req *http.Request) bool {
+	if route.Negation {
+		return !route._matchTo(req)
+	} else {
+		return route._matchTo(req)
+	}
 }
 
 func (rs *Proxyer) routesChooseServers(req *http.Request) []*Server {

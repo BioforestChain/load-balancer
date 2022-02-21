@@ -14,9 +14,27 @@
       "scheme": "http",
       "host": "127.0.0.1",
       "port": 9801
+    },
+    {
+      "name": "Server C",
+      "scheme": "http",
+      "host": "127.0.0.1",
+      "port": 9802
     }
   ],
   "routes": [
-   
+    {
+      "mode": ":header",
+      "key": "Type",
+      "value": "custom-header-type",
+      "to": ["Server A"]
+    },
+    {
+      "mode": ":header",
+      "key": "Type",
+      "value": "custom-header-type",
+      "negation": true,
+      "to": ["Server B", "Server C"]
+    }
   ]
 }

@@ -1,6 +1,5 @@
 import assert from "assert";
 import { LoadBalancer } from "../src";
-import { WebSocket } from "ws";
 (async () => {
   const lb = new LoadBalancer();
   const res = await lb.start({
@@ -20,20 +19,29 @@ import { WebSocket } from "ws";
         host: "127.0.0.1",
         port: 9801,
       },
+      {
+        name: "Server C",
+        scheme: "http",
+        host: "127.0.0.1",
+        port: 9802,
+      },
     ],
-    routes: [],
+    routes: [
+      {
+        mode: ":header",
+        key: "type",
+        value: "custom-header-type",
+        to: ["Server A"],
+      },
+      {
+        mode: ":header",
+        key: "type",
+        value: "custom-header-type",
+        negation: true,
+        to: ["Server B", "Server C"],
+      },
+    ],
   });
   assert(res, "start server");
   // lb.stop();
-
-  /// client
-  const ws = new WebSocket("ws://localhost:8888", {
-    headers: {
-      type: "custom-header-type",
-    },
-  });
-  await new Promise((resolve) => {
-    ws.once("open", resolve);
-  });
-  ws.on("message", (msg) => {});
 })().catch(console.error);
