@@ -1,6 +1,6 @@
 {
   "name": "@bfchain/load-balancer-binary-darwin-64",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "repository": {
     "url": "https://github.com/BioforestChain/load-balancer"
   },
