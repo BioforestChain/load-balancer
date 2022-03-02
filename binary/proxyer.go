@@ -103,7 +103,7 @@ func (proxy *Proxyer) strategyChooseServer(servers []*Server) *Server {
 }
 
 func (proxy Proxyer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	proxy.attemptServers(w, r)
+	go proxy.attemptServers(w, r)
 }
 
 // type ProxyHandler struct {
