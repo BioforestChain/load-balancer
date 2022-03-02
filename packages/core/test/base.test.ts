@@ -1,7 +1,7 @@
 import assert from "assert";
 import { LoadBalancer } from "../src";
 (async () => {
-  const lb = new LoadBalancer();
+  const lb = new LoadBalancer(undefined, console.info);
   const res = await lb.start({
     scheme: "http",
     host: "0.0.0.0",

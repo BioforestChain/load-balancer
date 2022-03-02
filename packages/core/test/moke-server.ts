@@ -37,10 +37,11 @@ const startServer = (port: number) => {
 
 if (isMainThread) {
   startServer(9800);
-  for (let i = 1; i <= 3; i++)
+  for (let i = 1; i <= 3; i++) {
     new Worker(__filename, {
       workerData: { port: 9800 + i },
     });
+  }
 } else {
   startServer(workerData.port);
 }

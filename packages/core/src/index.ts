@@ -114,19 +114,20 @@ export class LoadBalancer {
     if (this._process) {
       return false;
     }
+    const logger = this._logger;
+    const hasLogger = typeof logger === "function";
+
     const process = (this._process = spawn(this._binaryPath, {
-      stdio: ["pipe", "pipe", "pipe"],
+      stdio: ["pipe", hasLogger ? "pipe" : "ignore", "pipe"],
     } as SpawnOptionsWithStdioTuple<"pipe", "pipe", "pipe">));
     this._sendRequest(process, { cmd: "start", conf });
     process.stderr.on("data", (chunk) => {
-      // console.log("chunk", String(chunk));
       this.joinChunk(chunk);
     });
     process.on("exit", () => {
       this._event.emit("exit");
     });
-    const logger = this._logger;
-    if (typeof logger === "function") {
+    if (hasLogger) {
       process.stdout.on("data", (chunk) => logger(String(chunk)));
     }
     await this._waitCmdReponse("start");

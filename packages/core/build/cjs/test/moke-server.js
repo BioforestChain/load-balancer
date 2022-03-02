@@ -31,10 +31,11 @@ const startServer = (port) => {
 };
 if (node_worker_threads_1.isMainThread) {
     startServer(9800);
-    for (let i = 1; i <= 3; i++)
+    for (let i = 1; i <= 3; i++) {
         new node_worker_threads_1.Worker(__filename, {
             workerData: { port: 9800 + i },
         });
+    }
 }
 else {
     startServer(node_worker_threads_1.workerData.port);
