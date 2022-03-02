@@ -30,7 +30,7 @@ const startServer = (port: number) => {
       ws.send(util.format("%s / %d / %s", new Date(), threadId, msg));
     });
   });
-  server.listen(0, "127.0.0.1", () => {
+  server.listen(port, "127.0.0.1", () => {
     console.log("server started:", server.address());
   });
 };

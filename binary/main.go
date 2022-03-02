@@ -66,7 +66,6 @@ func handlerMsg(cmsg *ClientMessage) {
 		/// 运行服务
 		proxy = newProxy
 		server = &http.Server{Addr: ":" + strconv.Itoa(proxy.Port), Handler: proxy}
-
 		if err := listenAndServe(server); err != nil {
 			returnError(cmsg.Cmd, err)
 			return

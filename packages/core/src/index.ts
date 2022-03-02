@@ -9,7 +9,10 @@ import { Writable, Readable } from "node:stream";
 import { EventEmitter } from "node:events";
 
 export class LoadBalancer {
-  constructor(private _binaryPath = "") {
+  constructor(
+    private _binaryPath = "",
+    private _logger?: (log: string) => unknown
+  ) {
     if (this._binaryPath === "") {
       // const req = createRequire(import.meta.url)
       const platform = os.platform();
@@ -116,12 +119,16 @@ export class LoadBalancer {
     } as SpawnOptionsWithStdioTuple<"pipe", "pipe", "pipe">));
     this._sendRequest(process, { cmd: "start", conf });
     process.stderr.on("data", (chunk) => {
-      console.log("chunk", chunk.toString());
+      // console.log("chunk", String(chunk));
       this.joinChunk(chunk);
     });
     process.on("exit", () => {
       this._event.emit("exit");
     });
+    const logger = this._logger;
+    if (typeof logger === "function") {
+      process.stdout.on("data", (chunk) => logger(String(chunk)));
+    }
     await this._waitCmdReponse("start");
 
     return true;

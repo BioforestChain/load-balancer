@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"runtime"
 	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -103,7 +105,8 @@ func (proxy *Proxyer) strategyChooseServer(servers []*Server) *Server {
 }
 
 func (proxy Proxyer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	go proxy.attemptServers(w, r)
+	fmt.Printf("goid: %v\n", goid())
+	proxy.attemptServers(w, r)
 }
 
 // type ProxyHandler struct {
@@ -113,3 +116,13 @@ func (proxy Proxyer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // func (h *ProxyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // 	h.proxy.ServeHTTP(w, r)
 // }
+func goid() int {
+	var buf [64]byte
+	n := runtime.Stack(buf[:], false)
+	idField := strings.Fields(strings.TrimPrefix(string(buf[:n]), "goroutine "))[0]
+	id, err := strconv.Atoi(idField)
+	if err != nil {
+		panic(fmt.Sprintf("cannot get goroutine id: %v", err))
+	}
+	return id
+}

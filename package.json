@@ -7,8 +7,8 @@
   "scripts": {
     "dev": "tsc -build -w",
     "publ": "yarn workspaces foreach npm publish --tolerate-republish --access public",
-    "moke-server": "node ./packages/core/build/cjs/test/moke-server.js  ",
-    "load-balancer": "node ./packages/core/build/cjs/src/index.js",
+    "moke-server": "node ./packages/core/build/cjs/test/moke-server.js",
+    "load-balancer": "node ./packages/core/build/cjs/test/base.test.js",
     "binary-build-windows": "cd ./binary && CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o ../packages/windows/binary",
     "binary-build-linux": "cd ./binary && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build  -o ../packages/linux/binary",
     "binary-build-mac": "cd ./binary && CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build  -o ../packages/darwin/binary",

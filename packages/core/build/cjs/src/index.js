@@ -6,8 +6,9 @@ const os = (0, tslib_1.__importStar)(require("node:os"));
 const node_child_process_1 = require("node:child_process");
 const node_events_1 = require("node:events");
 class LoadBalancer {
-    constructor(_binaryPath = "") {
+    constructor(_binaryPath = "", _logger) {
         this._binaryPath = _binaryPath;
+        this._logger = _logger;
         this._cacheOutput = "";
         this._event = new node_events_1.EventEmitter();
         if (this._binaryPath === "") {
@@ -100,12 +101,16 @@ class LoadBalancer {
         }));
         this._sendRequest(process, { cmd: "start", conf });
         process.stderr.on("data", (chunk) => {
-            console.log("chunk", chunk.toString());
+            // console.log("chunk", String(chunk));
             this.joinChunk(chunk);
         });
         process.on("exit", () => {
             this._event.emit("exit");
         });
+        const logger = this._logger;
+        if (typeof logger === "function") {
+            process.stdout.on("data", (chunk) => logger(String(chunk)));
+        }
         await this._waitCmdReponse("start");
         return true;
     }
