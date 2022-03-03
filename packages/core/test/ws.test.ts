@@ -17,7 +17,7 @@ import { WebSocket } from "ws";
     });
   };
   const accMap = {} as any;
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 1000; i++) {
     const toId = await fetch("custom-header-type");
     accMap[toId] = (accMap[toId] | 0) + 1;
   }

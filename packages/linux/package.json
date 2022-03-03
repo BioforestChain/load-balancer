@@ -1,6 +1,6 @@
 {
   "name": "@bfchain/load-balancer-binary-linux-64",
-  "version": "1.1.7",
+  "version": "1.1.7-log",
   "repository": {
     "url": "https://github.com/BioforestChain/load-balancer"
   },

@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"runtime"
 	"sort"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type Proxyer struct {
@@ -105,7 +107,13 @@ func (proxy *Proxyer) strategyChooseServer(servers []*Server) *Server {
 }
 
 func (proxy Proxyer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("goid: %v\n", goid())
+	goid_info := fmt.Sprintf("goid: %v\n", goid())
+	fmt.Print(goid_info)
+
+	f, _ := os.OpenFile("./lb.log", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	f.WriteString("[" + time.Now().Format("15:04:05") + "] " + goid_info)
+	f.Close()
+
 	proxy.attemptServers(w, r)
 }
 

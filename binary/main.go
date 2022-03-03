@@ -5,12 +5,14 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net"
 	"net/http"
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type ClientMessage struct {
@@ -110,6 +112,15 @@ func handlerMsg(cmsg *ClientMessage) {
 }
 
 func main() {
+	go func() {
+		f, _ := os.OpenFile("./live.log", os.O_WRONLY|os.O_CREATE, 0600)
+		for {
+			time.Sleep(time.Second)
+			f.Seek(0, io.SeekStart)
+			f.WriteString("[" + time.Now().Format("15:04:05") + "]!!!!")
+		}
+	}()
+
 	configPtr := flag.String("config", "", "config filepath")
 	flag.Parse()
 
